@@ -1,0 +1,66 @@
+{% extends 'architect/base.html' %}
+{% load static %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">Architect Project Tasks</h3>
+                    </div>
+
+                    {% include "pages/form_template.html" with messages=messages  form=form button_text="Submit Task"%}
+                </div>
+                <!-- /.card -->
+<div class="card card-dark">
+    <div class="card-header"><h3 class="card-title">Architect Project Tasks</h3>
+    </div>
+   <div class="tble p-2">
+
+       <table class="tabe table-bordered" style="width:px !important;font-size: 15px; text-align: center;">
+           <tr>
+               <!-- <th>ID</th> -->
+               <th class="col-3">Project Name</th>
+               <th>Project Type</th>
+               <th style="width:30px !important ">Project Plans</th>
+               <th>Progress</th>     
+               <th>Status</th>
+               <th>Client Feedback</th>
+            <th>Created At</th>
+        </tr>
+        {% for feedback in archictect %}
+        <tr>
+            <!-- <td>{{forloop.counter}}</td> -->
+            <td>{{ feedback.constructionproject.project}}</td>
+            <td>{{ feedback.constructionproject.project_type}}</td>
+            <td>{{ feedback.archictect_plan}}</td>
+
+            <!-- <td>{{ feedback.progress}}%</td> -->
+            <td><progress id="file" max="100" value="{{ feedback.progress }}"> {{ feedback.progress }}% </progress>{{ feedback.progress }}%</td>
+            <!-- <td>{{feedback.task_file}}</td> -->
+            <td>{{feedback.status}}</td>
+            <td>
+                  
+                {% if feedback.reply == "" %}
+                    <p class="badge badge-warning">No Response Yet</p>
+                    {% else %}
+                    {{feedback.reply}}
+                {% endif %}
+                    
+            </td>
+            <td>{{feedback.created_at}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

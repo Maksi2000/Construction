@@ -1,0 +1,66 @@
+{% extends 'engineer/base.html' %}
+{% load static %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">{{page_title}}</h3>
+                    </div>
+
+                    {% include "pages/form_template.html" with messages=messages  form=form button_text="Update Profile"%}
+                </div>
+                <!-- /.card -->
+<div class="card card-dark">
+    <div class="card-header"><h3 class="card-title">Architect Details</h3>
+    </div>
+   <div class="table p-2">
+
+       <table class="table table-bordered" style="width:px !important">
+           <tr>
+               <!-- <th>ID</th> -->
+               <!-- <th>Client Name</th> -->
+               <th>Phone No.</th>
+               <th>Project Type</th>
+               <th>Project Images</th>
+               <th>Budget</th>
+        </tr>
+        {% for feedback in admins %}
+        <tr>
+            <!-- <td>{{forloop.counter}}</td> -->
+            <!-- <td>{{ feedback.admin}}</td> -->
+            <td>{{ feedback.mobile}}</td>
+            <td>{{ feedback.project_type}}</td>
+            <td>{{ feedback.project_images}}</td>
+            <td>Ksh. {{ feedback.budget}}</td>
+            </tr>
+<!-- budget -->
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block custom_js %}
+  <script>
+      $(document).ready(function(){
+            var ifNotfied = false;
+          $("#id_password").on("change", function(){
+              if (!ifNotfied){
+                ifNotfied = true;
+                alert("After a successful profile update:\n\nYour session would be terminated\nYou would be required to login again")
+              }
+          })
+      })
+  </script>
+{% endblock custom_js %}

@@ -1,0 +1,64 @@
+{% extends 'architect/base.html' %}
+{% load static %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-dark">
+                    <!-- <div class="card-header">
+                        <h3 class="card-title">Architect Project Tasks</h3>
+                    </div> -->
+
+                
+                </div>
+                <!-- /.card -->
+<div class="card card-dark">
+    <div class="card-header"><h3 class="card-title">Architect Project Tasks</h3>
+    </div>
+   <div class="table p-2">
+
+       <table class="table table-bordered" style="width:px !important">
+           <tr>
+               <!-- <th>ID</th> -->
+               <th>Client Name</th>
+               <th>Project Name</th>
+               <th>Description</th>
+               <th>Project Type</th>
+               <!-- <th>Task File</th> -->
+               <!-- <th>Status</th> -->
+               <!-- <th>Client Feedback</th> -->
+            <th>Created At</th>
+        </tr>
+        {% for feedback in projects %}
+        <tr>
+            <!-- <td>{{forloop.counter}}</td> -->
+            <td>{{ feedback.project_client}}</td>
+            <td>{{ feedback.project}}</td>
+            <td>{{ feedback.descrition}}</td>
+            <td>{{feedback.project_type}}</td>
+            <!-- <td>{{feedback.status}}</td> -->
+            <!-- <td>
+                  
+                {% if feedback.reply == "" %}
+                    <p class="badge badge-warning">No Response Yet</p>
+                    {% else %}
+                    {{feedback.reply}}
+                {% endif %}
+                    
+            </td> -->
+            <td>{{feedback.startdate}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,93 @@
+<!-- //templates/edit.html -->
+{% extends "Client/base2.html" %}
+  {% load widget_tweaks %}
+ 
+<!-- {% block title %}Add New Employee Records{% endblock title %} -->
+ 
+{% block content %}
+  <section class="home-section">
+    <div class="home-content">
+      <!-- <i class='bx bx-menu' ></i> -->
+      <!-- <span class="text">Drop Down Sidebar</span> -->
+      <div class="col-md-12">
+    <!-- <h4>Django CRUD (Create Read Update Delete) Example - Bootstrap Datatable</h4>   -->
+ <form method="POST" class="post-form" action="/updateprojectdetails/{{project.id}}">  
+   {% csrf_token %}  
+  <div class="container">  
+ <br>  
+  <div class="form-group row">  
+  <label class="col-sm-1 col-form-label"></label>  
+  <div class="col-sm-4">  
+  <h3>Update project details</h3>  
+  </div>  
+   </div>  
+  <div class="form-group row">  
+  <!-- <label class="col-sm-2 col-form-label">Student Id:</label>   -->
+  <div class="col-sm-4">  
+   <input type="text" style="display:none;" class="form-control" name="id" id="id_id" required maxlength="20" value="{{ project.id }}"/>  
+  </div>  
+   </div>  
+   <div class="form-group row">  
+  <label class="col-sm-3 col-form-label">Project Name:</label>  
+  <div class="col-sm-4">  
+   <input type="text" style="height: 40px"  class="form-control" name="project" id="id_project" required maxlength="150" value="{{ project.project }}" />  
+  </div>  
+   </div>  
+  <div class="form-group row">  
+  <label class="col-sm-3 col-form-label">Project Description:</label>  
+  <div class="col-sm-4">  
+   <input type="text" style="height: 150px" class="form-control" name="descrition" id="id_descrition" required maxlength="150" value="{{ project.descrition }}" />  
+  </div>  
+   </div>  
+<!--     <div class="form-group row">  
+  <label class="col-sm-3 col-form-label">Project plan:</label>  
+  <div class="col-sm-4">  
+   <input type="file" style="height: px" class="form-control" name="project_plans" id="id_project_plans" required maxlength="150" value="{{ project.project_plans }}" />  
+  </div>  
+   </div>   -->
+  <div class="form-group row">  
+  <label class="col-sm-3 col-form-label">Project Type:</label>  
+  <div class="col-sm-4"> 
+  <!-- {% render_field form.project_type class="form-control" maxlength="150"%}  -->
+   <!-- <input type="text" class="form-control" name="project_type " id="id_project_type " required maxlength="15" value="{{ project.project_type  }}" />   -->
+   <select class="form-control" name="project_type" id="id_project_type" value="{{ project.project_type}}" required>
+        <option>{{project.project_type}}</option>
+        <option>Fire Resistive</option>
+        <option>Non-Combustible</option>
+        <option>Ordinary</option>
+        <option>Heavy Timber</option>
+        <option>Wooden Framed</option>
+
+  </select>
+  </div>  
+   </div> 
+  <div class="form-group row">  
+  <label class="col-sm-3 col-form-label">Project Architect:</label>  
+  <div class="col-sm-4">  
+
+
+    {% render_field form.project_architect class="form-control" maxlength="150"%}
+
+  </div>  
+   </div>  
+     <div class="form-group row">  
+  <label class="col-sm-3 col-form-label">Project Architect:</label>  
+  <div class="col-sm-4">  
+
+
+    {% render_field form.project_eng class="form-control" maxlength="150"%}
+
+  </div>  
+   </div>      
+  <div class="form-group row">  
+  <label class="col-sm-3 col-form-label"></label>  
+  <div class="col-sm-4">  
+  <button style="width:200px" type="submit" class="btn btn-success btn-lg">Save </button>  
+  </div>  
+   </div>  
+  </div>  
+ </form>  
+    </div>
+  </section>
+
+{% endblock content %}   

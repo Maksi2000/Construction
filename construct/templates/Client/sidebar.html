@@ -1,0 +1,139 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-info elevation-4">
+    <!-- Brand Logo -->
+    <a href="{% url 'client_home'%}" class="brand-link">
+        <img src="{% static 'dist/img/span.jpg' %} " alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" >
+    <span class="brand-text font-weight-light">Developer Panel</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ request.user.profile_pic}}" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">{{user}}</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+
+                            <div class="sidebar">
+                                <!-- Sidebar Menu -->
+                                <nav class="mt-2">
+                                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                                        data-accordion="false">
+
+                                        <li class="nav-item">
+                                            {% url 'client_home' as client_home %}
+                                            <a href="{{client_home}}"
+                                                class="nav-link {% if client_home == request.path %} active {% endif %}">
+                                                <i class="nav-icon fas fa-home"></i>
+                                                <p>
+                                                    Home
+
+                                                </p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            {% url 'addproject' as addproject%}
+                                            <a href="{{addproject}}"
+                                                class="nav-link {% if addproject == request.path %} active {% endif %}">
+                                                <i class="nav-icon fas fa-plus"></i>
+                                                <p>
+                                                   Create Project
+
+                                                </p>
+                                            </a>
+                                        </li>
+
+
+                                        <li class="nav-item">
+                                            {% url 'client_viewprojects' as client_viewprojects%}
+                                            <a href="{{client_viewprojects}}"
+                                                class="nav-link {% if client_viewprojects == request.path %} active {% endif %}">
+                                                <i class="nav-icon fas fa-eye"></i>
+                                                <p>
+                                                    View Projects
+
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            {% url 'admin_notify_architect' as admin_notify_architect %}
+                                            <a href="{{admin_notify_architect}}"
+                                                class="nav-link {% if admin_notify_architect == request.path %} active {% endif %}">
+                                                <i class="nav-icon fas fa-bell"></i>
+                                                <p>
+                                                    Architect Notifications
+
+                                                </p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            {% url 'admin_notify_engineer' as admin_notify_engineer %}
+                                            <a href="{{admin_notify_engineer}}"
+                                                class="nav-link {% if admin_notify_engineer == request.path %} active {% endif %}">
+                                                <i class="nav-icon fas fa-bell"></i>
+                                                <p>
+                                                    Contractor Notifications
+
+                                                </p>
+                                            </a>
+                                        </li>
+
+
+
+ 
+
+                                        <li class="nav-item">
+                                            {% url 'architect_task_message' as architect_task_message %}
+                                            <a href="{{architect_task_message}}"
+                                                class="nav-link {% if architect_task_message == request.path %} active {% endif %}">
+                                                <i class="nav-icon fas fa-book"></i>
+                                                <p>
+                                                   Architect Tasks
+
+                                                </p>
+                                            </a>
+                                        </li>
+
+
+                                        <li class="nav-item">
+                                            {% url 'engineer_task_message' as engineer_task_message %}
+                                            <a href="{{engineer_task_message}}"
+                                                class="nav-link {% if engineer_task_message == request.path %} active {% endif %}">
+                                                <i class="nav-icon fas fa-list-alt"></i>
+                                                <p>
+                                                   Contractor Tasks
+
+                                                </p>
+                                            </a>
+                                        </li>
+
+
+                                  
+
+
+
+                                        <li class="nav-item">
+                                            <a href="{% url 'user_logout' %}"
+                                                onclick="return confirm('Your session would be terminated.\n\nProceed?')"
+                                                class="nav-link">
+                                                <i class="nav-icon fas fa-power-off"></i>
+                                                <p>
+                                                    Logout
+                                                </p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <!-- /.sidebar-menu -->
+                            </div>
+                            <!-- /.sidebar -->
+</aside>

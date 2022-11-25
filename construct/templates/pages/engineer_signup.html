@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Construction Management System</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css'%} ">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet"
+        href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'%} ">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css'%} ">
+    
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css'%} ">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css'%} ">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css'%} ">
+    
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <title></title>
+</head>
+<body>
+    {% block custom_css %}
+  <style>
+      .invalid{
+        font-style: italic;
+        font-weight: bold;
+        color: red;
+      }
+      .valid{
+        font-style: italic;
+        font-weight: bold;
+        color: green;
+      }
+      .content{
+        margin-left: 350px;
+      }
+  </style>
+{% endblock custom_css %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+            <div class="form-group">
+                {% if messages %}
+                {% for message in messages  %}
+    
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success">
+                    {{message}}
+                </div>
+                {% else %}
+                <div class="alert alert-danger">
+                    {{message}}
+                </div>
+                {% endif %}
+    
+                {% endfor %}
+                {% endif %}
+            </div>
+            </div></div></div></section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+    </div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">{{page_title}}</h3>
+                    </div>
+
+                    {% include "pages/form_template.html" with messages=messages  form=form button_text="Register Engineer"%}
+                </div>
+                <!-- /.card -->
+
+            </div>
+        </div>
+    </div>
+</section>
+{% block content %}
+{% endblock content %}
+{% block custom_js %}
+<script>
+    function validateEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+    $(document).ready(function(){
+        $("#id_email").keyup(function(){
+            
+            var email = $(this).val()
+            if (validateEmail(email)){
+            $.ajax({
+                url: "{% url 'check_email_availability' %}",
+                type: 'POST',
+                data:{email:email}
+            }).done(function(response){
+                if (response == "True"){
+                    $(".email_error").remove()
+                    $("<span class='invalid email_error'>Email Address Already Exist</span>").insertAfter("#id_email");
+                }
+                else{
+                    $(".email_error").remove()
+                    $("<span class='valid email_error'>Email Address Available</span>").insertAfter("#id_email");
+                }
+            }).fail(function(response){
+                $("<span class='alert alert-warning'>Server Could Not Process This</span>").insertAfter("#id_email");
+            })
+        }
+        })
+    });
+</script>
+{% endblock custom_js %}
+<!-- ./wrapper -->
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.min.js'%} "></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{% static 'plugins/jquery-ui/jquery-ui.min.js'%} "></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js'%} "></script>
+    <!-- ChartJS -->
+    <script src="{% static 'plugins/chart.js/Chart.min.js'%} "></script>
+    <!-- Sparkline -->
+    <script src="{% static 'plugins/sparklines/sparkline.js'%} "></script>
+ 
+    <!-- jQuery Knob Chart -->
+    <script src="{% static 'plugins/jquery-knob/jquery.knob.min.js'%} "></script>
+    <!-- daterangepicker -->
+    <script src="{% static 'plugins/moment/moment.min.js'%} "></script>
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js'%} "></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'%} "></script>
+
+    <!-- overlayScrollbars -->
+    <script src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js'%} "></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/adminlte.js'%} "></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="{% static 'dist/js/pages/dashboard.js'%} "></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dist/js/demo.js'%} "></script>
+</body>
+</html>

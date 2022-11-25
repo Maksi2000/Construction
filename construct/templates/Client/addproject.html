@@ -1,0 +1,160 @@
+{% extends "Client/base2.html" %} {% load humanize %} {% block content %}
+
+{% load static %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+            	<form  method="post">
+            		{% csrf_token %}
+                <!-- general form elements -->
+                <div class="card card-dark">
+                    <div class="card-header">
+                        <h3 class="card-title">Client Create Project</h3>
+                    </div>
+                           {% for comp in projects %}
+                            <input type="hidden" name="project_client" value="{{comp.id}}">
+                            {% endfor %}
+                            <div class="row justify-content-between text-left">
+				                        <div class="form-group col-sm-6 flex-column d-flex">
+				                          <label class="form-control-label px-3">Description:<span class="text-danger"> *</span></label>
+				                          <input style="width:900px; height: 150px;margin-left: 20px;" required name="descrition" id="descrition" type="text" multiple class="form-control">
+				                        </div>
+				                        
+
+				                    </div>
+				                    <div class="row justify-content-between text-left">
+				                        <div class="form-group col-sm-6 flex-column d-flex">
+				                          <label class="form-control-label px-3">Project Name:<span class="text-danger"> *</span></label>
+				                          <input style="margin-left: 20px; width:450px" required name="project" id="project" type="project" multiple class="form-control">
+				                        </div>
+				                        <div class="form-group col-sm-6 flex-column d-flex">
+				                          <label class="form-control-label px-3">Project Type:<span class="text-danger"> *</span></label>
+				                          <select style="margin-left: -30px !important;" class="form-control" name="project_type" id="project_type" required>
+						                            <option>...</option>
+						                            <option>Fire Resistive</option>
+						                            <option>Non-Combustible</option>
+						                            <option>Ordinary</option>
+						                            <option>Heavy Timber</option>
+						                            <option>Wooden Framed</option>
+						                          </select>
+				                        </div>
+				                    </div>
+                    	<div class="row justify-content-end">
+                        <div class="form-group col-sm-6">
+                          <button type="submit" class="btn-block btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+                 </form>
+<div class="card card-dark">
+    <div class="card-header"><h3 class="card-title">Available architects</h3>
+    </div>
+   <div class="tble p-2">
+
+       <table class="tabe table-bordered" style="width:890px !important;font-size: 15px; text-align: center;">
+           <tr>
+					<th>Architect Name</th>
+					<th>Project Type</th>
+					<th>Phone No.</th>
+					<th style="width:2px !important;">Plans</th>
+					<th>Budget</th>
+					<th></th>
+				</tr>
+           {% for architect in sr %}
+		        <tr>
+		        	<td>{{ architect.admin}}</td>
+		        	<td>{{ architect.project_type }}</td>
+		        	<td>{{architect.mobile}}</td>
+		        	<td>{{ architect.project_plans }}</td>
+		        	<td>{{ architect.budget }}</td>
+		        	<td><button data-toggle = "modal" data-target = "#myModal"class="btn btn-primary show_notification" value="{{architect.admin.id}}">Send Notification</button> 
+                                    </td>
+		        	<!-- <td>{{ k.rooms }}</td> -->
+		        	<!-- <td>{{ k.mtime }}</td> -->
+		        </tr>
+		 		{% endfor %}
+
+        </table>
+    </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" 
+   aria-labelledby = "myModalLabel" aria-hidden = "true">
+   
+   <div class = "modal-dialog">
+      <div class = "modal-content">
+         
+         <div class = "modal-header">Send Notification
+            <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                  &times;
+            </button>
+            
+           
+         </div>
+         
+         <div class = "modal-body">
+            <div class="form-group">
+                <input type="text" id="message" class='form-control'>
+                <br>
+                <input type="hidden"  id="archictect_id" name="" class='form-control'>
+            </div>
+         </div>
+         
+         <div class = "modal-footer">
+            <button type = "button" class = "btn btn-danger" data-dismiss = "modal">
+               Close
+            </button>
+            
+            <button type = "button" id='send' class = "btn btn-success send_notification">
+               Send Notification
+            </button>
+         </div>
+         
+      </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+  
+</div><!-- /.modal -->
+{% endblock content %}
+{% block custom_js %}
+  <script>
+      $(".show_notification").click(function(){
+          $("#archictect_id").val($(this).val())
+      })
+      $(".send_notification").click(function(){
+          var id = $("#archictect_id").val()
+          var message = $("#message").val()
+          sendNotification(id,message);
+      })
+    function sendNotification(id,message){
+        $.ajax({
+            url: "{% url 'send_architect_notification' %}",
+            type: 'POST',
+            data: {
+                id: id,
+                message:message,
+            }
+        }).done(function (response) {
+           
+          if (response == 'True'){
+            alert("Notification Sent");
+            location.reload();
+          }else{
+            alert("Notification could not be saved. Please try again.");
+          }
+           
+        }).fail(function (response) {
+            alert("Error in saving token")
+        })
+
+    }
+
+  </script>
+{% endblock custom_js %}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="website1" content="This is the first practice html+css website">
+    <link rel="stylesheet" href="style.css">
+    <title>First a Website</title>
+</head>
+<style type="text/css">
+    *{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    
+}
+
+.banner {
+    
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0, 0,0,0.5)), url('static/dist/img/images.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+.navebar{
+    width: 85%;
+    margin: auto;
+    padding: 35px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+/*   cursor: pointer; */
+/*   background-color: #FFEA11; */
+  margin-left: -20px;
+}
+
+.navebar ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 13px; 
+   /*padding: 0 20px; */
+    position: relative; 
+
+}
+
+.navebar ul li a {
+    text-decoration: none;
+    color:#FFEA11;
+    text-transform: capitalize;
+}
+
+.navebar ul li::after{
+    content: '';
+    height: 2px;
+    width: 0; /*100% */
+    background: #009688;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    transition: 0.5s;
+}
+
+.navebar ul li:hover::after {
+    width: 100%;
+}
+
+.content {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: white;
+}
+
+.content h1 {
+    text-transform: uppercase;
+    font-size: 40px;
+    margin-top: 80px;
+}
+.content p {
+    margin: 20px auto;
+    font-weight: 100;
+    line-height: 25px;
+}
+
+button {
+    
+    width: 150px;
+    height: 40px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 20px 10px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid #009688;
+    background: transparent;
+    color:  #FFEA11;
+    cursor: pointer;
+    position:relative;
+    overflow: hidden;
+    
+}
+
+span {
+    text-align: center;
+    background: #009688;
+    height: 100%;
+    width: 0;
+    border-radius: 25px;
+    position:absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: 0.5s;
+
+}
+button:hover span {
+    width: 100%;
+}
+button:hover {
+    border: none;
+}
+</style>
+<body>
+    <div class="banner">
+        <div class="navebar">
+            <a href="#"><img class="logo" src="/static/dist/img/span.jpg" loading="lazy"  width="60px" height="60px"  ></a><h2 style="color:white;">Construction Management System</h2>
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="{% url 'login_page'%}">Property Manager Login</a></li>
+                <li><a href="{% url 'architect_login_page'%}">Architect Login</a></li>
+                <li><a href="{% url 'engineer_login_page'%}">Contractor Login</a></li>
+                <!-- <li><a href="#">Backyard</a></li> -->
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Let's Manage Your Projects</h1>
+            <p>We manage construction projects,monitor their inputs,evalute their work and provide feedback through the system. The process is super simplifed,<br>all you have to do is create an account, create project and we will connect you to the best. Do not be left out.</p>
+            <!-- <div>
+                <button type="button"><span></span>WATCH MORE</button>
+                <button type="button"> <span></span>SUBSCRIBE</button>
+            </div> -->
+        </div>
+    </div>
+</body>
+</html>
